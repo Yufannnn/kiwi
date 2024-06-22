@@ -5,7 +5,7 @@ import os
 from PIL import Image
 
 # Path to the directory containing the images
-image_directory = 'Second Phase Experiments'
+image_directory = 'MTurk'
 
 # Get a list of all subdirectories in the directory
 subdirectories = [d for d in os.listdir(image_directory) if os.path.isdir(os.path.join(image_directory, d))]
@@ -20,17 +20,17 @@ for subdirectory in subdirectories:
         if not os.path.exists(os.path.join(image_directory, subdirectory, folder)):
             print('Missing folder:', folder)
 
-    # check the images in each folder
-    for folder in required_folders:
-        print('Checking images in folder:', folder)
-        images = [f for f in os.listdir(os.path.join(image_directory, subdirectory, folder)) if f.endswith('.jpg')]
-        for image in images:
-            try:
-                img = Image.open(os.path.join(image_directory, subdirectory, folder, image))
-                img.verify()
-            except Exception as e:
-                print('Error with image:', image)
-                print(e)
+        # check the images in each folder
+        for folder in required_folders:
+            images = [f for f in os.listdir(os.path.join(image_directory, subdirectory, folder)) if f.endswith('.png')]
+            for image in images:
+                try:
+                    # Open the image file
+                    img = Image.open(os.path.join(image_directory, subdirectory, folder, image))
+                    img.verify()
+                except Exception as e:
+                    print('Error with image:', image)
+                    print(e)
 
     print('Finished checking subdirectory:', subdirectory)
     print()
